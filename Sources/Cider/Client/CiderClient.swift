@@ -168,9 +168,9 @@ public struct CiderClient {
      Get heavy-rotation from user
      
      */
-    public func heavyRotation(limit: Int? = nil, offset: Int? = nil, completion: ((HeavyRotationAlbum?, Error?) -> Void)?) {
+    public func heavyRotation(limit: Int? = nil, offset: Int? = nil, completion: (([HeavyRotation]?, Error?) -> Void)?) {
         let request = urlBuilder.heavyRotationRequest(limit: limit, offset: offset)
-        fetch(request) { (results: HeavyRotationAlbum?, error) in completion?(results, error) }
+        fetch(request) { (results: ResponseRoot<HeavyRotation>?, error) in completion?(results?.data, error) }
     }
 
 
@@ -192,25 +192,6 @@ public struct CiderClient {
     }
 
     // MARK: Helpers
-
-    private func fetch(_ request: URLRequest, completion: ((HeavyRotationAlbum?, Error?) -> Void)?) {
-        fetcher.fetch(request: request) { (data, error) in
-            guard let data = data else {
-                completion?(nil, error)
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let results = try decoder.decode(HeavyRotationAlbum.self, from: data)
-            
-                completion?(results, nil)
-            } catch {
-                completion?(nil, error)
-            }
-        }
-    }
-
     
     private func fetch<T>(_ request: URLRequest, completion: ((ResponseRoot<T>?, Error?) -> Void)?) {
         fetcher.fetch(request: request) { (data, error) in
