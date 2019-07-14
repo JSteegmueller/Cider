@@ -168,9 +168,9 @@ public struct CiderClient {
      Get heavy-rotation from user
      
      */
-    public func heavyRotation(limit: Int? = nil, offset: Int? = nil, types: [MediaType]? = nil, completion: ((SearchResults?, Error?) -> Void)?) {
+    public func heavyRotation(limit: Int? = nil, offset: Int? = nil, types: [MediaType]? = nil, completion: ((Album?, Error?) -> Void)?) {
         let request = urlBuilder.heavyRotationRequest(limit: limit, offset: offset)
-        fetch(request) { (results: ResponseRoot<SearchResults>?, error) in completion?(results?.results, error) }
+        fetch(request) { (results: ResponseRoot<Album>?, error) in completion?(results?.data?.first, error) }
     }
 
 
