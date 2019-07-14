@@ -46,6 +46,7 @@
 		3BD1D15A1F319C83001E9705 /* AlbumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1D1591F319C83001E9705 /* AlbumTests.swift */; };
 		3BD1D15C1F31A1D8001E9705 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1D15B1F31A1D8001E9705 /* Album.swift */; };
 		3BD1D15E1F31A462001E9705 /* PlayParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1D15D1F31A462001E9705 /* PlayParameters.swift */; };
+		492BE0E922DB660E0036917A /* HeavyRotationAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492BE0E822DB660E0036917A /* HeavyRotationAlbum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		3BD1D1591F319C83001E9705 /* AlbumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTests.swift; sourceTree = "<group>"; };
 		3BD1D15B1F31A1D8001E9705 /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		3BD1D15D1F31A462001E9705 /* PlayParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayParameters.swift; sourceTree = "<group>"; };
+		492BE0E822DB660E0036917A /* HeavyRotationAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeavyRotationAlbum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				3BD1D15D1F31A462001E9705 /* PlayParameters.swift */,
 				3B8F78951F531DBE0091E3DC /* Storefront.swift */,
 				3B1C416D1F322BEB0000AADB /* Track.swift */,
+				492BE0E822DB660E0036917A /* HeavyRotationAlbum.swift */,
 			);
 			path = ResourceObjects;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				3B8F78941F531A610091E3DC /* UrlFetcher.swift in Sources */,
 				3B8F78961F531DBE0091E3DC /* Storefront.swift in Sources */,
 				3B1C416E1F322BEB0000AADB /* Track.swift in Sources */,
+				492BE0E922DB660E0036917A /* HeavyRotationAlbum.swift in Sources */,
 				3BAF09AE1F3C17670018AA8B /* Genre.swift in Sources */,
 				3B9E36821F3142930014CB60 /* CiderUrlBuilder.swift in Sources */,
 				3BAF09A41F3BB7880018AA8B /* AppleMusicAPIError.swift in Sources */,
