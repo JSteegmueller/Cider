@@ -13,6 +13,7 @@ protocol UrlBuilder {
     func searchHintsRequest(term: String, limit: Int?, types: [MediaType]?) -> URLRequest
     func fetchRequest(mediaType: MediaType, id: String, include: [Include]?) -> URLRequest
     func relationshipRequest(path: String, limit: Int?, offset: Int?) -> URLRequest
+    func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest
 }
 
 public enum CiderUrlBuilderError: Error {
@@ -40,6 +41,9 @@ private struct AppleMusicApi {
     // Fetch
     static let fetchPath = "v1/catalog/{storefront}/{mediaType}/{id}"
     static let fetchInclude = "include"
+    
+    // User-specific https://api.music.apple.com/v1/me/history/heavy-rotation
+    static let heavyRotationPath = "v1/me/history/heavy-rotation"
 }
 
 // MARK: - UrlBuilder
@@ -56,6 +60,12 @@ struct CiderUrlBuilder: UrlBuilder {
 
     // MARK: Init
 
+    init(storefront: Storefront, developerToken: String, userToken: String) {
+        self.storefront = storefront
+        self.developerToken = developerToken
+        self.userToken = userToken
+    }
+    
     init(storefront: Storefront, developerToken: String) {
         self.storefront = storefront
         self.developerToken = developerToken
@@ -71,6 +81,17 @@ struct CiderUrlBuilder: UrlBuilder {
     }
 
     // MARK: Construct urls
+    
+    private func heavyRotationUrl( limit: Int?, offset: Int?) -> URL {
+        var components = URLComponents()
+        
+        components.path = AppleMusicApi.heavyRotationPath
+        
+        components.apply(limit: limit)
+        components.apply(offset: offset)
+        
+        return components.url(relativeTo: baseApiUrl)!
+    }
 
     private func seachUrl(term: String, limit: Int?, offset: Int?, types: [MediaType]?) -> URL {
 
@@ -127,6 +148,11 @@ struct CiderUrlBuilder: UrlBuilder {
     }
 
     // MARK: Construct requests
+    
+    func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest {
+        let url = heavyRotationUrl(limit: limit, offset: offset)
+        return constructRequestWithUserAuth(url: url)
+    }
 
     func searchRequest(term: String, limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest {
         let url = seachUrl(term: term, limit: limit, offset: offset, types: types)
@@ -152,6 +178,14 @@ struct CiderUrlBuilder: UrlBuilder {
         var request = URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: timeout)
         request = addAuth(request: request)
 
+        return request
+    }
+    
+    private func constructRequestWithUserAuth(url: URL) -> URLRequest {
+        var request = URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: timeout)
+        request = addAuth(request: request)
+        request = try! addUserToken(request: request)
+        
         return request
     }
 

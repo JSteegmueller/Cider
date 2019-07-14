@@ -37,12 +37,19 @@ public struct CiderClient {
      - parameters:
        - storefront: The `Storefront` to submit requests to.
        - developerToken: The Apple Music developer token to use in requests.
+       - userToken: The Apple Music user token to use in requests.
        - urlFetcher: The `UrlFetcher` to use for processing requests. Defaults to a `URLSession` with the default `URLSessionConfiguration`.
      */
     public init(storefront: Storefront, developerToken: String, urlFetcher: UrlFetcher = CiderClient.defaultURLFetcher) {
         let urlBuilder = CiderUrlBuilder(storefront: storefront, developerToken: developerToken)
         self.init(urlBuilder: urlBuilder, urlFetcher: urlFetcher)
     }
+    
+    public init(storefront: Storefront, developerToken: String, userToken: String, urlFetcher: UrlFetcher = CiderClient.defaultURLFetcher) {
+        let urlBuilder = CiderUrlBuilder(storefront: storefront, developerToken: developerToken, userToken: userToken)
+        self.init(urlBuilder: urlBuilder, urlFetcher: urlFetcher)
+    }
+
 
     // MARK: Search
 
@@ -154,6 +161,18 @@ public struct CiderClient {
         let request = urlBuilder.fetchRequest(mediaType: .curators, id: id, include: include)
         fetch(request) { (results: ResponseRoot<Curator>?, error) in completion?(results?.data?.first, error) }
     }
+    
+    // MARK: User-specific
+    
+    /**
+     Get heavy-rotation from user
+     
+     */
+    public func heavyRotation(limit: Int? = nil, offset: Int? = nil, types: [MediaType]? = nil, completion: ((SearchResults?, Error?) -> Void)?) {
+        let request = urlBuilder.heavyRotationRequest(limit: limit, offset: offset)
+        fetch(request) { (results: ResponseRoot<SearchResults>?, error) in completion?(results?.results, error) }
+    }
+
 
     // MARK: Relationships
 

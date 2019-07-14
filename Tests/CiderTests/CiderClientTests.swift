@@ -29,6 +29,8 @@ struct MockUrlBuilder: UrlBuilder {
     static let searchHintsRequest = URLRequest(url: URL(string: "http://searchHint.com")!)
     static let fetchRequest = URLRequest(url: URL(string: "http://fetch.com")!)
     static let relationshipRequest = URLRequest(url: URL(string: "http://relationship.com")!)
+    static let heavyRotationRequest = URLRequest(url: URL(string: "http://rotation.com")!)
+
 
     func searchRequest(term: String, limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest {
         return MockUrlBuilder.searchRequest
@@ -44,6 +46,10 @@ struct MockUrlBuilder: UrlBuilder {
 
     func relationshipRequest(path: String, limit: Int?, offset: Int?) -> URLRequest {
         return MockUrlBuilder.relationshipRequest
+    }
+    
+    func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest {
+        return MockUrlBuilder.heavyRotationRequest
     }
 }
 
