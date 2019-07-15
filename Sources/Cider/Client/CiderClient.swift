@@ -172,6 +172,22 @@ public struct CiderClient {
         let request = urlBuilder.heavyRotationRequest(limit: limit, offset: offset)
         fetch(request) { (results: ResponseRoot<HeavyRotation>?, error) in completion?(results?.data, error) }
     }
+    
+    /**
+     Get heavy-rotation as json from user
+     
+     */
+    public func heavyRotationJsonString(limit: Int? = nil, offset: Int? = nil, completion: @escaping (String, Error?) -> Void) {
+        let request = urlBuilder.heavyRotationRequest(limit: limit, offset: offset)
+        fetcher.fetch(request: request){ (data, error) in
+            guard let data = data else {
+                completion("", error)
+                return
+            }
+            completion(String.init(data: data, encoding: .utf8) ?? "error decoding", nil)
+        }
+    }
+
 
 
     // MARK: Relationships
