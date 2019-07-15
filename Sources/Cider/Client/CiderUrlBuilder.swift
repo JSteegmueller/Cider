@@ -56,7 +56,7 @@ struct CiderUrlBuilder: UrlBuilder {
     let developerToken: String
     var userToken: String?
     private let cachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy
-    private let timeout: TimeInterval = 5
+    private let timeout: TimeInterval = 10
 
     // MARK: Init
 
