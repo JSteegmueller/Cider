@@ -173,7 +173,7 @@ struct CiderUrlBuilder: UrlBuilder {
     }
     
     func recentPlayedRequest(limit: Int?, offset: Int?) -> URLRequest {
-        let url = recentPlayedRequest(limit: limit, offset: offset)
+        let url = recentPlayedUrl(limit: limit, offset: offset)
         return constructRequestWithUserAuth(url: url)
     }
 
