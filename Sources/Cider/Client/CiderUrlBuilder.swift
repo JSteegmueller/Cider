@@ -14,6 +14,7 @@ protocol UrlBuilder {
     func fetchRequest(mediaType: MediaType, id: String, include: [Include]?) -> URLRequest
     func relationshipRequest(path: String, limit: Int?, offset: Int?) -> URLRequest
     func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest
+    func recentPlayedRequest(limit: Int?, offset: Int?) -> URLRequest
 }
 
 public enum CiderUrlBuilderError: Error {
@@ -42,8 +43,13 @@ private struct AppleMusicApi {
     static let fetchPath = "v1/catalog/{storefront}/{mediaType}/{id}"
     static let fetchInclude = "include"
     
-    // User-specific https://api.music.apple.com/v1/me/history/heavy-rotation
+    // User-specific heavy-rotation https://api.music.apple.com/v1/me/history/heavy-rotation
     static let heavyRotationPath = "v1/me/history/heavy-rotation"
+    
+    // User-specific recent https://api.music.apple.com/v1/me/recent/played
+    static let recentPlayedPath = "v1/me/recent/played"
+    
+    
 }
 
 // MARK: - UrlBuilder
@@ -92,6 +98,18 @@ struct CiderUrlBuilder: UrlBuilder {
         
         return components.url(relativeTo: baseApiUrl)!
     }
+    
+    private func recentPlayedUrl( limit: Int?, offset: Int?) -> URL {
+        var components = URLComponents()
+        
+        components.path = AppleMusicApi.recentPlayedPath
+        
+        components.apply(limit: limit)
+        components.apply(offset: offset)
+        
+        return components.url(relativeTo: baseApiUrl)!
+    }
+
 
     private func seachUrl(term: String, limit: Int?, offset: Int?, types: [MediaType]?) -> URL {
 
@@ -150,6 +168,11 @@ struct CiderUrlBuilder: UrlBuilder {
     // MARK: Construct requests
     
     func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest {
+        let url = heavyRotationUrl(limit: limit, offset: offset)
+        return constructRequestWithUserAuth(url: url)
+    }
+    
+    func recentPlayedRequest(limit: Int?, offset: Int?) -> URLRequest {
         let url = heavyRotationUrl(limit: limit, offset: offset)
         return constructRequestWithUserAuth(url: url)
     }

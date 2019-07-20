@@ -187,6 +187,22 @@ public struct CiderClient {
             completion(String.init(data: data, encoding: .utf8) ?? "error decoding", nil)
         }
     }
+    
+    /**
+     Get recent played as json from user
+     
+     */
+    public func recentPlayedJsonString(limit: Int? = nil, offset: Int? = nil, completion: @escaping (String, Error?) -> Void) {
+        let request = urlBuilder.recentPlayedRequest(limit: limit, offset: offset)
+        fetcher.fetch(request: request){ (data, error) in
+            guard let data = data else {
+                completion("", error)
+                return
+            }
+            completion(String.init(data: data, encoding: .utf8) ?? "error decoding", nil)
+        }
+    }
+
 
 
 
