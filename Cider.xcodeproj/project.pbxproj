@@ -47,6 +47,7 @@
 		3BD1D15C1F31A1D8001E9705 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1D15B1F31A1D8001E9705 /* Album.swift */; };
 		3BD1D15E1F31A462001E9705 /* PlayParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1D15D1F31A462001E9705 /* PlayParameters.swift */; };
 		492BE0EB22DB82440036917A /* HeavyRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492BE0EA22DB82440036917A /* HeavyRotation.swift */; };
+		49FD824322E5A7E90083F7D5 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD824222E5A7E90083F7D5 /* Preview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		3BD1D15B1F31A1D8001E9705 /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		3BD1D15D1F31A462001E9705 /* PlayParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayParameters.swift; sourceTree = "<group>"; };
 		492BE0EA22DB82440036917A /* HeavyRotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeavyRotation.swift; sourceTree = "<group>"; };
+		49FD824222E5A7E90083F7D5 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				3BD1D15D1F31A462001E9705 /* PlayParameters.swift */,
 				3B8F78951F531DBE0091E3DC /* Storefront.swift */,
 				3B1C416D1F322BEB0000AADB /* Track.swift */,
+				49FD824222E5A7E90083F7D5 /* Preview.swift */,
 			);
 			path = ResourceObjects;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				3B70426C1F50B12F00479B2A /* Curator.swift in Sources */,
 				3BAF09B01F3C1D0C0018AA8B /* CiderClient.swift in Sources */,
 				3BAF09A81F3BBACC0018AA8B /* ResponseRoot.swift in Sources */,
+				49FD824322E5A7E90083F7D5 /* Preview.swift in Sources */,
 				3BAF09AA1F3BC06F0018AA8B /* Relationship.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
