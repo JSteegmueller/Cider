@@ -217,7 +217,23 @@ public struct CiderClient {
             completion(String.init(data: data, encoding: .utf8) ?? "error decoding", nil)
         }
     }
+    
+    /**
+    Get search as json
+ 
+    */
+    public func searchJsonString(term: String, limit: Int? = nil, offset: Int? = nil, types: [MediaType]? = nil, completion: @escaping (String, Error?) -> Void) {
+        let request = urlBuilder.searchRequest(term: term, limit: limit, offset: offset, types: types)
+        fetcher.fetch(request: request){ (data, error) in
+            guard let data = data else {
+                completion("", error)
+                return
+            }
+            completion(String.init(data: data, encoding: .utf8) ?? "error decoding", nil)
+        }
+    }
 
+    
     // MARK: Relationships
 
     /**
