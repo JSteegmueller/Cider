@@ -51,7 +51,7 @@ private struct AppleMusicApi {
     static let recentPlayedPath = "v1/me/recent/played"
     
     //Charts of specific country https://api.music.apple.com/v1/catalog/{storefront}/charts
-    static let chartsPath = "v1/catalog/en-US/charts"
+    static let chartsPath = "v1/catalog/us/charts"
     
 }
 
