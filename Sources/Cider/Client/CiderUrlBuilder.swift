@@ -15,7 +15,8 @@ protocol UrlBuilder {
     func relationshipRequest(path: String, limit: Int?, offset: Int?) -> URLRequest
     func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest
     func recentPlayedRequest(limit: Int?, offset: Int?) -> URLRequest
-    func chartsRequest(limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest 
+    func chartsRequest(limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest
+    func userPlaylistsRequest(limit: Int?, offset: Int?) -> URLRequest
 }
 
 public enum CiderUrlBuilderError: Error {
@@ -49,6 +50,9 @@ private struct AppleMusicApi {
     
     // User-specific recent https://api.music.apple.com/v1/me/recent/played
     static let recentPlayedPath = "v1/me/recent/played"
+    
+    // Private user playlists
+    static let userPlaylistsPath = "v1/me/library/playlists"
     
     //Charts of specific country https://api.music.apple.com/v1/catalog/{storefront}/charts
     static let chartsPath = "v1/catalog/us/charts"
@@ -101,6 +105,18 @@ struct CiderUrlBuilder: UrlBuilder {
         
         return components.url(relativeTo: baseApiUrl)!
     }
+    
+    private func userPlaylistsUrl( limit: Int?, offset: Int?) -> URL {
+        var components = URLComponents()
+        
+        components.path = AppleMusicApi.userPlaylistsPath
+        
+        components.apply(limit: limit)
+        components.apply(offset: offset)
+        
+        return components.url(relativeTo: baseApiUrl)!
+    }
+
     
     private func recentPlayedUrl( limit: Int?, offset: Int?) -> URL {
         var components = URLComponents()
@@ -185,6 +201,11 @@ struct CiderUrlBuilder: UrlBuilder {
     
     func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest {
         let url = heavyRotationUrl(limit: limit, offset: offset)
+        return constructRequestWithUserAuth(url: url)
+    }
+
+    func userPlaylistsRequest(limit: Int?, offset: Int?) -> URLRequest {
+        let url = userPlaylistsUrl(limit: limit, offset: offset)
         return constructRequestWithUserAuth(url: url)
     }
     
