@@ -38,3 +38,4 @@ playground.xcworkspace
 Packages/
 # Package.pins
 .build/
+.DS_Store
