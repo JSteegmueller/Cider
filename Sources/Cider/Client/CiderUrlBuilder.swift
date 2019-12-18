@@ -17,6 +17,7 @@ protocol UrlBuilder {
     func recentPlayedRequest(limit: Int?, offset: Int?) -> URLRequest
     func chartsRequest(limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest
     func userPlaylistsRequest(limit: Int?, offset: Int?) -> URLRequest
+    func userRecommendationsRequest(limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest
 }
 
 public enum CiderUrlBuilderError: Error {
@@ -57,6 +58,9 @@ private struct AppleMusicApi {
     //Charts of specific country https://api.music.apple.com/v1/catalog/{storefront}/charts
     static let chartsPath = "v1/catalog/us/charts"
     
+    //User-specific recommendations
+    static let recommendationsPath = "v1/me/recommendations"
+    
 }
 
 // MARK: - UrlBuilder
@@ -94,6 +98,18 @@ struct CiderUrlBuilder: UrlBuilder {
     }
 
     // MARK: Construct urls
+    
+    private func recommendationsUrl( limit: Int?, offset: Int?, types: [MediaType]?) -> URL {
+        var components = URLComponents()
+        
+        components.path = AppleMusicApi.recommendationsPath
+        
+        components.apply(limit: limit)
+        components.apply(offset: offset)
+        components.apply(mediaTypes: types)
+        
+        return components.url(relativeTo: baseApiUrl)!
+    }
     
     private func heavyRotationUrl( limit: Int?, offset: Int?) -> URL {
         var components = URLComponents()
@@ -199,6 +215,11 @@ struct CiderUrlBuilder: UrlBuilder {
 
     // MARK: Construct requests
     
+    func userRecommendationsRequest(limit: Int?, offset: Int?, types: [MediaType]?) -> URLRequest {
+        let url = recommendationsUrl(limit: limit, offset: offset, types: types)
+        return constructRequestWithUserAuth(url: url)
+    }
+
     func heavyRotationRequest(limit: Int?, offset: Int?) -> URLRequest {
         let url = heavyRotationUrl(limit: limit, offset: offset)
         return constructRequestWithUserAuth(url: url)

@@ -53,6 +53,21 @@ public struct CiderClient {
 
     // MARK: Search
 
+    /**
+     Get user recommendations
+    
+     */
+    public func recommendationsJsonString(limit: Int? = nil, offset: Int? = nil, types: [MediaType]? = nil, completion: @escaping (String, Error?) -> Void) {
+        let request = urlBuilder.userRecommendationsRequest(limit: limit, offset: offset, types: types)
+        fetcher.fetch(request: request){ (data, error) in
+            guard let data = data else {
+                completion("", error)
+                return
+            }
+            completion(String.init(data: data, encoding: .utf8) ?? "error decoding", nil)
+        }
+    }
+    
     
     /**
      Get heavy-rotation as json from user
